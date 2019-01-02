@@ -7,3 +7,7 @@
 - 编辑word版本的VSCode快捷键、把英文翻译成中文
 - 在转成PDF格式就可以了
 ----
+
+
+![VSCode快捷键原版](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+
