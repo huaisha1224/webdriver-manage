@@ -15,6 +15,5 @@
 
 # 参考资料
 - [VSCode快捷键原版](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
-- [文字版VSCode快捷键](https://github.com/crper/Visual-Studio-Code-CNKEYMAP)
 
 
