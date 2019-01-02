@@ -10,4 +10,5 @@
 
 
 ![VSCode快捷键原版](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+![https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf](VSCode快捷键原版)
 
