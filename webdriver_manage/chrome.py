@@ -133,6 +133,7 @@ def check_chromedriver():
     """
 
     try:
+        # 判断本机Chrome版本号
         chrome_version = get_local_chrome_version()
         chrome_main_version = int(chrome_version.split(".")[0])     # 获取Chrome主版本号
     except WindowsError as e:
@@ -140,19 +141,22 @@ def check_chromedriver():
         return 0
     
     try:
+        # 判断是否安装ChromeDriver以及版本
         chromedriver_version = get_local_chromedriver_version()
         # print(chromedriver_version)
         if chromedriver_version != 0:
             chromedriver_main_version = int(chromedriver_version.split(".")[0]) # 获取chromedriver主版本号
+        else:
+            # print(chromedriver_version)
+            print("本机未安装Chromedriver, 需下载安装ChromeDriver")
+            chromedriver_main_version = 0
+            # get_chromedriver_url(chrome_version, chrome_main_version)
 
     except IndexError as e:
-        chromedriver_main_version = int(chromedriver_version.split(".")[0]) # 获取chromedriver主版本号
-        print("本机未安装Chromedriver {}".format(e))
-        get_chromedriver_url(chrome_version, chrome_main_version)
         return 0
 
     if chrome_main_version != chromedriver_main_version:
-        print("Chromedriver版本 {} 和Chrome版本 {} 不兼容,开始更新Chromedriver".format(chromedriver_version,chrome_version))
+        print("Chromedriver版本 {} 和Chrome版本 {} 不兼容,需要更新Chromedriver".format(chromedriver_version,chrome_version))
         get_chromedriver_url(chrome_version, chrome_main_version)
 
     else:
