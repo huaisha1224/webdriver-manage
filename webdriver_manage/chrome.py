@@ -43,11 +43,14 @@ def get_chromedriver_path():
         for chromedriver_path in path_dir_list:
             if path.exists(chromedriver_path + '\chromedriver.exe'):
                 return chromedriver_path
+
+                # 未找到Chromedriver时就安装到Python目录下
+            elif path.exists(chromedriver_path + '\python.exe'): 
+                return chromedriver_path
             else:
                 pass
     except IndexError:
         pass
-
 
 
 def get_local_chrome_version():

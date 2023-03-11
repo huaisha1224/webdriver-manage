@@ -30,6 +30,7 @@
 ## 更新记录
 - 【2023-03-07】提交代码
 - 【2023-03-07】支持Chrome浏览器
+- 【2023-03-11】未安装chromedriver时下载chromedriver文件到Python的PATH目录中
 
 
 ## 待完成的功能
