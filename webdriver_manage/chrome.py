@@ -143,8 +143,10 @@ def download_chromedriver(download_chromedriver_url):
             chromedriver_file.extract(file, path)
         else:
             pass
+    chromedriver_file.close()
+    remove('chromedriver.zip')
     print(f"chromedriver文件替换到 {path} 成功。")
-    # remove('chromedriver.zip')
+
     
 
 def check_chromedriver():
