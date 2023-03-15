@@ -81,7 +81,7 @@ def get_local_chromedriver_version():
         return local_chromedriver_version
     
     except IndexError as e:
-        print("本机未安装Chromedriver")
+        # print("本机未安装Chromedriver")
         return 0 
 
 
@@ -145,8 +145,9 @@ def download_chromedriver(download_chromedriver_url):
             pass
     chromedriver_file.close()
     remove('chromedriver.zip')
-    print(f"chromedriver文件替换到 {path} 成功。")
-
+    print(f"ChromeDriver文件替换到 {path} 成功。")
+    get_local_chromedriver_version()
+    #print('本机ChromeDriver最新版本：',get_local_chromedriver_version())
     
 
 def check_chromedriver():
