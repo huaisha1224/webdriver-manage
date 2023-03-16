@@ -3,12 +3,9 @@
 __author__ = "Sam.huang"
 
 from webdriver_manage.chrome import check_chromedriver
+from webdriver_manage.msedge import check_msedgedriver
 
 
 if __name__=='__main__':
-    # chrome.get_local_chrome_version()
-    # get_local_chromedriver_version()
-    # get_server_chrome_versions()
-    # webdriver_manager.chrome.check_chromedriver()
-    check_chromedriver()
-    # get_chromedriver_url()
+    # check_chromedriver()  # chromedriver
+    check_msedgedriver()    # msedgedriver  
