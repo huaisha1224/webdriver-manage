@@ -2,52 +2,12 @@
 # -*- coding:utf-8 -*-
 __author__ = "Sam.huang"
 
-# from selenium import webdriver
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
-from os import path, remove, popen
-from sys import argv
+from os import remove, popen
 from zipfile import ZipFile
 from winreg import OpenKey, QueryValueEx, HKEY_CURRENT_USER
 from requests import get
 from datetime import datetime
-from selenium import webdriver
-
-
-
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument('log-level=3')
-# #   去除webdriver特征
-# chrome_options.add_experimental_option('excludeSwitches', ['enable-automation'])
-# chrome_options.add_experimental_option('excludeSwitches', ['enable-automation'])
-# chrome_options.add_experimental_option('useAutomationExtension', False)
-# chrome_options.add_argument("--disable-blink-features")
-# chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-
-
-def get_msedgedriver_path():
-    """
-    获取MSedgeDriver路径
-    """
-    # 通过命令行获取本机所有path路径
-    try:
-        out_path_dir = popen('echo %PATH%').read()
-        path_dir_list = out_path_dir.split(';')
-
-        # 遍历path路径中是否有msedgedriver.exe文件
-        for msedgedriver_path in path_dir_list:
-            if path.exists(msedgedriver_path + '\msedgedriver.exe'):
-                return msedgedriver_path
-
-                # 未找到msedgedriver时就安装到Python目录下
-            elif path.exists(msedgedriver_path + '\python.exe'): 
-                return msedgedriver_path
-            else:
-                pass
-    except IndexError:
-        pass
+from webdriver_manage.get_path import get_webdriver_path
 
 
 def get_local_edge_version():
@@ -96,7 +56,7 @@ def download_msedgedriver(msedgedriver_version):
     
 
     # 解压文件到MSEdgeDriver path路径下
-    path = get_msedgedriver_path()
+    path = get_webdriver_path('msedgedriver.exe')
     msedgedriver_file = ZipFile("edgedriver_win32.zip", "r")
     for file in msedgedriver_file.namelist():
         if path != None:
@@ -107,7 +67,7 @@ def download_msedgedriver(msedgedriver_version):
     remove('edgedriver_win32.zip')
     print(f"MSEdgeDriver文件替换到 {path} 成功。")
     get_local_msedgedriver_version()
-    #print('本机msedgedriver最新版本：',get_local_chromedriver_version())
+    #print('本机msedgedriver最新版本：',get_local_msedgedriver_version())
     
 
 def check_msedgedriver():
@@ -148,8 +108,8 @@ def check_msedgedriver():
 
 
 if __name__=='__main__':
-    # print(get_msedgedriver_path())
     # get_local_edge_version()
     # get_local_msedgedriver_version()
     # download_msedgedriver()
     check_msedgedriver()
+    # print(get_path.get_webdriver_path('msedgedriver.exe'))

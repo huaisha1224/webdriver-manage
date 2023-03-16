@@ -2,55 +2,16 @@
 # -*- coding:utf-8 -*-
 __author__ = "Sam.huang"
 
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from os import path, remove, popen
 from sys import argv
 from zipfile import ZipFile
 from winreg import OpenKey, QueryValueEx, HKEY_CURRENT_USER
 from requests import get
 from datetime import datetime
-from selenium import webdriver
-
-
-
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('log-level=3')
-#   去除webdriver特征
-chrome_options.add_experimental_option('excludeSwitches', ['enable-automation'])
-chrome_options.add_experimental_option('excludeSwitches', ['enable-automation'])
-chrome_options.add_experimental_option('useAutomationExtension', False)
-chrome_options.add_argument("--disable-blink-features")
-chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+from webdriver_manage.get_path import get_webdriver_path
 
 # chromedriver 下载地址
 url='https://registry.npmmirror.com/-/binary/chromedriver/' 
-# version_re = re.compile(r'^[1-9]\d*\.\d*.\d*')  # 用正则表达式匹配前3位版本号
-
-def get_chromedriver_path():
-    """
-    获取chromedriver路径
-    """
-    # 通过命令行获取本机所有path路径
-    try:
-        out_path_dir = popen('echo %PATH%').read()
-        path_dir_list = out_path_dir.split(';')
-
-        # 遍历path路径中是否有chromedriver.exe文件
-        for chromedriver_path in path_dir_list:
-            if path.exists(chromedriver_path + '\chromedriver.exe'):
-                return chromedriver_path
-
-                # 未找到Chromedriver时就安装到Python目录下
-            elif path.exists(chromedriver_path + '\python.exe'): 
-                return chromedriver_path
-            else:
-                pass
-    except IndexError:
-        pass
 
 
 def get_local_chrome_version():
@@ -105,18 +66,20 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
     chrome_version, chrome_main_version
     获取chromedriver下载链接
     """
+    # chromedriver 下载地址
+    url='https://registry.npmmirror.com/-/binary/chromedriver/' 
     server_chromedriver_list= get_server_chrome_versions()
 
     if chrome_version in server_chromedriver_list:
         # 优先使用完整版本号匹配
         download_chromedriver_url = f"{url}{chrome_version}/chromedriver_win32.zip"
-        print("Chromedriver版本{} 匹配成功, 下载地址: {}".format(chrome_version,download_chromedriver_url))
+        print(f"Chromedriver版本{chrome_version} 匹配成功, 开始下载")
     else:
         # 匹配失败后通过主版本号匹配
         for mian_version in server_chromedriver_list:
             if mian_version.startswith(str(chrome_main_version)):       # 用startswith() 方法检查字符串是否以主版本号开头
                 download_chromedriver_url = f"{url}{mian_version}/chromedriver_win32.zip"
-                print("Chromedriver主版本号{} 匹配成功, 下载地址: {}".format(mian_version,download_chromedriver_url))
+                print(f"Chromedriver主版本号{mian_version} 匹配成功, 开始更新")
                 break
         if download_chromedriver_url == "":
             print("找不到与Chrome版本匹配的chromedriver的版本，请去 {} 查看".format(url))
@@ -136,7 +99,7 @@ def download_chromedriver(download_chromedriver_url):
     
 
     # 解压文件到chromedriver path路径下
-    path = get_chromedriver_path()
+    path = get_webdriver_path('chromedriver.exe')
     chromedriver_file = ZipFile("chromedriver.zip", "r")
     for file in chromedriver_file.namelist():
         if path != None:
