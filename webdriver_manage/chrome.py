@@ -2,14 +2,13 @@
 # -*- coding:utf-8 -*-
 __author__ = "Sam.huang"
 
-from os import path, remove, popen
-from sys import argv
+from os import popen
 from zipfile import ZipFile
 from winreg import OpenKey, QueryValueEx, HKEY_CURRENT_USER
 from requests import get
-from datetime import datetime
 import get_path
 from download_webdriver import download_webdriver
+
 
 # chromedriver 下载地址
 url='https://registry.npmmirror.com/-/binary/chromedriver/' 
@@ -89,35 +88,7 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
     chromedriver_path = get_path.get_webdriver_path('chromedriver.exe')
     download_webdriver(download_chromedriver_url,'chromedriver_win32.zip',chromedriver_path)
     get_local_chromedriver_version()
-
-
-
-def download_chromedriver(download_chromedriver_url):
-    """
-    下载chromedriver版本
-    """
-    # 下载chromedriver文件到当前目录
-    file = get(download_chromedriver_url)
-    with open("chromedriver.zip", "wb") as zip_file:        
-        zip_file.write(file.content)
-        print("Chromedriver下载完成")
     
-
-    # 解压文件到chromedriver path路径下
-    path = get_path.get_webdriver_path('chromedriver.exe')
-    chromedriver_file = ZipFile("chromedriver.zip", "r")
-    for file in chromedriver_file.namelist():
-        if path != None:
-            chromedriver_file.extract(file, path)
-        else:
-            pass
-    chromedriver_file.close()
-    remove('chromedriver.zip')
-    print(f"ChromeDriver文件替换到 {path} 成功。")
-    get_local_chromedriver_version()
-    #print('本机ChromeDriver最新版本：',get_local_chromedriver_version())
-    
-
 def check_chromedriver():
     """
     比较本地Chrome版本和Chromedriver版本是否匹配

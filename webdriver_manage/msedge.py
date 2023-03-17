@@ -43,35 +43,6 @@ def get_local_msedgedriver_version():
         # print("本机未安装MSEdgeDriver")
         return 0 
 
-
-def download_msedgedriver(msedgedriver_version):
-    """
-    下载MSEdgeDriver版本
-    """
-    # 下载MSEdgeDriver文件到当前目录
-    # download_msedgedriver_url = 'https://msedgedriver.azureedge.net/111.0.1661.43/edgedriver_win32.zip'
-    download_msedgedriver_url = f"https://msedgedriver.azureedge.net/{msedgedriver_version}/edgedriver_win32.zip"
-    file = get(download_msedgedriver_url)
-    with open("edgedriver_win32.zip", "wb") as zip_file:        
-        zip_file.write(file.content)
-        print("MSEdgeDriver下载完成")
-    
-
-    # 解压文件到MSEdgeDriver path路径下
-    path = get_path.get_webdriver_path('msedgedriver.exe')
-    msedgedriver_file = ZipFile("edgedriver_win32.zip", "r")
-    for file in msedgedriver_file.namelist():
-        if path != None:
-            msedgedriver_file.extract(file, path)
-        else:
-            pass
-    msedgedriver_file.close()
-    remove('edgedriver_win32.zip')
-    print(f"MSEdgeDriver文件替换到 {path} 成功。")
-    get_local_msedgedriver_version()
-    #print('本机msedgedriver最新版本：',get_local_msedgedriver_version())
-    
-
 def check_msedgedriver():
     """
     判断本地Edge版本和MSEdgeDriver版本是否匹配

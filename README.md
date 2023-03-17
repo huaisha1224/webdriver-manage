@@ -15,17 +15,21 @@
 
 ## 简单使用
     
-    from webdriver_manage.chrome import check_chromedriver
-    check_chromedriver()
+    from chrome import check_chromedriver
+	from msedge import check_msedgedriver
+    
+	check_chromedriver()
 
 
 运行结果如下
 
-	本机Chrome版本：110.0.5481.178
-	本机ChromeDriver版本 109.0.5414.25
-	Chromedriver版本 109.0.5414.25 和Chrome版本 110.0.5481.178 不兼容,开始更新Chromedriver
-	Chromedriver主版本号110.0.5481.30 匹配成功, 下载地址: https://registry.npmmirror.com/-/binary/chromedriver/110.0.5481.30/chromedriver_win32.zip
-	Chromedriver下载完成
+	本机Chrome版本：111.0.5563.65
+	本机ChromeDriver版本 110.0.5481.30
+	Chromedriver版本 110.0.5481.30 和Chrome版本 111.0.5563.65 不兼容,需要更新Chromedriver
+	Chromedriver主版本号111.0.5563.19 匹配成功, 开始更新
+	下载中: 6.79MiB [00:00, 9.22MiB/s]
+	chromedriver_win32.zip文件替换到 D:\Python38\ 成功。
+	本机ChromeDriver版本 111.0.5563.19
 
 ## 更新记录
 - 【2023-03-07】提交代码

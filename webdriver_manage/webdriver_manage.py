@@ -2,10 +2,10 @@
 # -*- coding:utf-8 -*-
 __author__ = "Sam.huang"
 
-import chrome
-import msedge
+from chrome import check_chromedriver
+from msedge import check_msedgedriver
 
 
 if __name__=='__main__':
-    # chrome.check_chromedriver()  # chromedriver
-    msedge.check_msedgedriver()    # msedgedriver 
+    check_chromedriver()  # chromedriver
+    # msedge.check_msedgedriver()    # msedgedriver 
