@@ -7,7 +7,9 @@ from zipfile import ZipFile
 from winreg import OpenKey, QueryValueEx, HKEY_CURRENT_USER
 from requests import get
 from datetime import datetime
-from webdriver_manage.get_path import get_webdriver_path
+from download_webdriver import download_webdriver
+import get_path
+
 
 
 def get_local_edge_version():
@@ -56,7 +58,7 @@ def download_msedgedriver(msedgedriver_version):
     
 
     # 解压文件到MSEdgeDriver path路径下
-    path = get_webdriver_path('msedgedriver.exe')
+    path = get_path.get_webdriver_path('msedgedriver.exe')
     msedgedriver_file = ZipFile("edgedriver_win32.zip", "r")
     for file in msedgedriver_file.namelist():
         if path != None:
@@ -100,7 +102,13 @@ def check_msedgedriver():
 
     if edge_main_version != msedgedriver_main_version:
         print("MSEdgeDriver版本 {} 和Edge版本 {} 不兼容,需要更新MSEdgeDriver".format(msedgedriver_version,edge_version))
-        download_msedgedriver(edge_version)
+        # download_msedgedriver(edge_version)
+        download_msedgedriver_url = f"https://msedgedriver.azureedge.net/{edge_version}/edgedriver_win32.zip"
+        msedgedriver_path = get_path.get_webdriver_path('msedgedriver.exe')
+        save_filename = 'edgedriver_win32.zip'
+        # print(download_msedgedriver_url)
+        download_webdriver(download_msedgedriver_url, save_filename, msedgedriver_path)
+        get_local_msedgedriver_version()
 
     else:
         print("MSEdgeDriver版本{}和Edge版本{}兼容，无需更新MSEdgeDriver版本".format(msedgedriver_version,edge_version))

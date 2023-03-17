@@ -8,7 +8,8 @@ from zipfile import ZipFile
 from winreg import OpenKey, QueryValueEx, HKEY_CURRENT_USER
 from requests import get
 from datetime import datetime
-from webdriver_manage.get_path import get_webdriver_path
+import get_path
+from download_webdriver import download_webdriver
 
 # chromedriver 下载地址
 url='https://registry.npmmirror.com/-/binary/chromedriver/' 
@@ -84,7 +85,11 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
         if download_chromedriver_url == "":
             print("找不到与Chrome版本匹配的chromedriver的版本，请去 {} 查看".format(url))
 
-    download_chromedriver(download_chromedriver_url)
+    # download_chromedriver(download_chromedriver_url)
+    chromedriver_path = get_path.get_webdriver_path('chromedriver.exe')
+    download_webdriver(download_chromedriver_url,'chromedriver_win32.zip',chromedriver_path)
+    get_local_chromedriver_version()
+
 
 
 def download_chromedriver(download_chromedriver_url):
@@ -99,7 +104,7 @@ def download_chromedriver(download_chromedriver_url):
     
 
     # 解压文件到chromedriver path路径下
-    path = get_webdriver_path('chromedriver.exe')
+    path = get_path.get_webdriver_path('chromedriver.exe')
     chromedriver_file = ZipFile("chromedriver.zip", "r")
     for file in chromedriver_file.namelist():
         if path != None:
