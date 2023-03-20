@@ -10,13 +10,14 @@ import get_path
 from download_webdriver import download_webdriver
 
 
-# chromedriver 下载地址
+# chromedriver 淘宝源下载地址
 url='https://registry.npmmirror.com/-/binary/chromedriver/' 
 
 
 def get_local_chrome_version():
     """
     通过注册表获取本机Chrome版本
+    return：local_chrome_version    返回本机安装的chromne版本号
     """
     try:
         # 通过注册表获取安装的Chrome版本号
@@ -31,9 +32,11 @@ def get_local_chrome_version():
 def get_local_chromedriver_version():
     """
     查询系统安装的Chromedriver版本
+    用popen通过命令行查询Chromedriver版本号
+    ChromeDriver 110.0.5481.30 (aedb656755c469651f01505a4f15e153fc606a1e-refs/branch-heads/5481@{#191})
+    local_chromedriver_version：返回本机安装的chromedriver版本号
     """
-    # 用popen通过命令行查询Chromedriver版本号
-    # ChromeDriver 110.0.5481.30 (aedb656755c469651f01505a4f15e153fc606a1e-refs/branch-heads/5481@{#191})
+
     try:
         outstd = popen('chromedriver --version').read()
        
@@ -48,7 +51,8 @@ def get_local_chromedriver_version():
 
 def get_server_chrome_versions():
     """
-    获取线上所有的Chromedriver版本信息
+    从淘宝源上获取所有的chromedriver版本信息
+    version_list：返回所有的chromedriver信息
     """
     version_list=[]
     version_url="https://registry.npmmirror.com/-/binary/chromedriver/"     # 从chromedriver所有版本信息
@@ -60,11 +64,12 @@ def get_server_chrome_versions():
     return version_list
 
 
-
 def get_chromedriver_url(chrome_version, chrome_main_version):
     """
-    chrome_version, chrome_main_version
-    获取chromedriver下载链接
+    通过传入的Chrome版本号进行匹配、优先匹配完版本，如果匹配不上就匹配主版本号
+    chrome_version：Chrome主浏览器版本
+    chrome_main_version：Chrome完整版本号
+    匹配到下载地址之后调用下载模块
     """
     # chromedriver 下载地址
     url='https://registry.npmmirror.com/-/binary/chromedriver/' 
@@ -92,6 +97,7 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
 def check_chromedriver():
     """
     比较本地Chrome版本和Chromedriver版本是否匹配
+    如果不匹配就调用下载更新chromedriver
     """
 
     try:

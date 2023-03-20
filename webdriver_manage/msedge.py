@@ -15,6 +15,7 @@ import get_path
 def get_local_edge_version():
     """
     通过注册表获取本机Edge浏览器版本
+    return ：local_edge_version     本机安装的edge浏览器版本号
     """
     try:
         # 通过注册表获取安装的Edge版本号
@@ -29,9 +30,10 @@ def get_local_edge_version():
 def get_local_msedgedriver_version():
     """
     查询系统安装的msedgedriver版本
+    用popen通过命令行查询msedgedriver版本号
+    Microsoft Edge WebDriver 110.0.1587.56 (65e63b43e03b1519efb720810a66373ecd5de466)
+    return：local_msedgedriver_version      返回本机安装的msedgedriver版本号
     """
-    # 用popen通过命令行查询msedgedriver版本号
-    # Microsoft Edge WebDriver 110.0.1587.56 (65e63b43e03b1519efb720810a66373ecd5de466)
     try:
         outstd = popen('msedgedriver --version').read()
        
@@ -71,9 +73,9 @@ def check_msedgedriver():
     except IndexError as e:
         return 0
 
+    # 判断是否需要更新
     if edge_main_version != msedgedriver_main_version:
         print("MSEdgeDriver版本 {} 和Edge版本 {} 不兼容,需要更新MSEdgeDriver".format(msedgedriver_version,edge_version))
-        # download_msedgedriver(edge_version)
         download_msedgedriver_url = f"https://msedgedriver.azureedge.net/{edge_version}/edgedriver_win32.zip"
         msedgedriver_path = get_path.get_webdriver_path('msedgedriver.exe')
         save_filename = 'edgedriver_win32.zip'

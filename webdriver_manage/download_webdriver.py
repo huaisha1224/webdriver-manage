@@ -12,6 +12,10 @@ from datetime import datetime
 def download_webdriver(download_webdriver_url, save_filename, save_webdriver_path):
     """
     下载WebDriver、并解压到指定目录
+    将下载的文件解压之后存放到指定目录
+    download_webdriver_url：下载地址
+    save_filename：下载文件名
+    save_webdriver_path：文件存放目录
     """
 
      # 用流stream的方式获取url的数据
@@ -20,7 +24,7 @@ def download_webdriver(download_webdriver_url, save_filename, save_webdriver_pat
     # 拿到文件的长度，并把total初始化为0
     total = int(resp.headers.get('content-lenght', 0))
 
-    # 初始化tqdm，传入总数，文件名等数据，接着就是写入，更新等操作
+    # 使用tqdm给下载添加下载进度信息
     with open(save_filename, "wb") as zip_file, tqdm(
         desc = '下载中',
         total = total,
