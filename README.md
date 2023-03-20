@@ -4,13 +4,28 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![star, issue](https://img.shields.io/badge/star%2C%20issue-welcome-brightgreen.svg)](https://github.com/huaisha1224/webdriver-manage)
 
-管理Selenium所需的WebDriver,自动匹配浏览器版本并更新合适版本的webdriver驱动程序.
+管理Selenium所需的WebDriver,自动匹配浏览器版本并更新合适的webdriver驱动程序.
 
 ## 主要功能
 
 -	查询本地浏览器版本
 -	查询本地安装的webdriver版本
 -	判断webdriver和浏览器版本是否匹配，不匹配时自动更新合适的webdriver
+
+## 运行环境
+
+- [Python 3](https://www.python.org/)
+
+## 第三方库
+
+- [Requests](http://docs.python-requests.org/en/master/)
+- [tqdm](https://tqdm.github.io/)
+
+## 安装
+
+```
+pip install -r requirements.txt
+```
 
 
 ## 简单使用
@@ -36,6 +51,7 @@
 - 【2023-03-07】支持Chrome浏览器
 - 【2023-03-11】未安装chromedriver时下载chromedriver文件到Python的PATH目录中
 - 【2023-03-16】支持Edge浏览器
+- 【2023-03-20】添加下载进度条
 
 
 ## 待完成的功能
@@ -43,4 +59,4 @@
 - 【✔】支持edge浏览器
 - 【  】支持firefox浏览器 
 - 【  】支持IE浏览器
-- 【  】下载浏览器
+- 【  】支持Opera浏览器
