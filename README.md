@@ -12,9 +12,16 @@
 -	查询本地安装的webdriver版本
 -	判断webdriver和浏览器版本是否匹配，不匹配时自动更新合适的webdriver
 
+## 目前支持
+
+-	[ChromeDriver](https://chromedriver.chromium.org/downloads)
+-	[MSEdgeDriver](https://developer.microsoft.com/microsoft-edge/tools/webdriver/)
+-	[GeckoDriver](https://github.com/mozilla/geckodriver/releases)
+
 ## 运行环境
 
 - [Python 3](https://www.python.org/)
+- [Windows](https://www.microsoft.com/zh-cn/software-download/)
 
 ## 第三方库
 
@@ -49,14 +56,15 @@ pip install -r requirements.txt
 ## 更新记录
 - 【2023-03-07】提交代码
 - 【2023-03-07】支持Chrome浏览器
-- 【2023-03-11】未安装chromedriver时下载chromedriver文件到Python的PATH目录中
+- 【2023-03-11】未安装WebDriver时下载WebDriver文件到Python的PATH目录中
 - 【2023-03-16】支持Edge浏览器
 - 【2023-03-20】添加下载进度条
+- 【2023-03-23】支持Firefox浏览器
 
 
 ## 待完成的功能
 - 【✔】支持Chrome浏览器
-- 【✔】支持edge浏览器
-- 【  】支持firefox浏览器 
+- 【✔】支持Edge浏览器
+- 【✔】支持Firefox浏览器 
 - 【  】支持IE浏览器
 - 【  】支持Opera浏览器
