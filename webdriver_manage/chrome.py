@@ -72,6 +72,7 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
     匹配到下载地址之后调用下载模块
     """
     # chromedriver 下载地址
+    download_chromedriver_url = ""
     url='https://registry.npmmirror.com/-/binary/chromedriver/' 
     server_chromedriver_list= get_server_chrome_versions()
 
@@ -86,13 +87,14 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
                 download_chromedriver_url = f"{url}{mian_version}/chromedriver_win32.zip"
                 print(f"Chromedriver主版本号{mian_version} 匹配成功, 开始更新")
                 break
-        if download_chromedriver_url == "":
-            print("找不到与Chrome版本匹配的chromedriver的版本，请去 {} 查看".format(url))
 
-    # download_chromedriver(download_chromedriver_url)
-    chromedriver_path = get_path.get_webdriver_path('chromedriver.exe')
-    download_webdriver(download_chromedriver_url,'chromedriver_win32.zip',chromedriver_path)
-    get_local_chromedriver_version()
+    # 判断Chromedriver下载地址
+    if download_chromedriver_url == "":
+        print("找不到与Chrome版本匹配的chromedriver的版本，请去 {} 查看".format(url))
+    else:
+        chromedriver_path = get_path.get_webdriver_path('chromedriver.exe')
+        download_webdriver(download_chromedriver_url,'chromedriver_win32.zip',chromedriver_path)
+        get_local_chromedriver_version()
     
 def check_chromedriver():
     """
@@ -137,4 +139,6 @@ if __name__=='__main__':
     # get_local_chromedriver_version()
     # get_server_chrome_versions()
     check_chromedriver()
-    # get_chromedriver_url()
+    # chrome_version = '114.283'
+    # chrome_main_version = '114'
+    # get_chromedriver_url(chrome_version, chrome_main_version)
