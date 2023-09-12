@@ -96,6 +96,41 @@ def get_chromedriver_url(chrome_version, chrome_main_version):
         download_webdriver(download_chromedriver_url,'chromedriver_win32.zip',chromedriver_path)
         get_local_chromedriver_version()
 
+def get_testing_chromedriver_download_url(version):
+    """
+    Chrome 114版本之后Google不在提供对应的ChromeDriver
+    需要从https://github.com/GoogleChromeLabs/chrome-for-testing#json-api-endpoints下载对应的版本
+    """
+    url = "https://googlechromelabs.github.io/chrome-for-testing/latest-versions-per-milestone-with-downloads.json"
+
+    try:
+        response = get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        # 查找匹配指定版本的milestone
+        milestone = None
+        for m in data["milestones"].values():
+            if m["version"].startswith(str(version)):
+                milestone = m
+                break
+
+        if milestone:
+            # 获取win32平台下的Chromedriver下载地址
+            for d in milestone["downloads"]["chromedriver"]:
+                if d["platform"] == "win32":
+                    chromedriver_testing_url = d["url"]
+                    print(chromedriver_testing_url)
+                    # 调用下载模块
+                    chromedriver_path = get_path.get_webdriver_path('chromedriver.exe')
+                    download_webdriver(chromedriver_testing_url,'chromedriver_win32.zip',chromedriver_path)
+                    # return d["url"]
+        return None
+    
+    except Exception as e:
+        print(f"请求失败：{e}")
+        return None
+
 def check_chromedriver():
     """
     比较本地Chrome版本和Chromedriver版本是否匹配
@@ -129,7 +164,10 @@ def check_chromedriver():
     # 判断是否需要更新
     if chrome_main_version != chromedriver_main_version:
         print(f"Chromedriver版本 {chromedriver_version} 和Chrome版本 {chrome_version} 不兼容，需要更新Chromedriver")
-        get_chromedriver_url(chrome_version, chrome_main_version)
+        if chrome_main_version >= 115:
+            get_testing_chromedriver_download_url(chrome_main_version)
+        else:
+            get_chromedriver_url(chrome_version, chrome_main_version)
     else:
         print(f"Chromedriver版本 {chromedriver_version} 和Chrome版本 {chrome_version} 兼容，无需更新Chromedriver版本")
 
@@ -139,6 +177,5 @@ if __name__=='__main__':
     # get_local_chromedriver_version()
     # get_server_chrome_versions()
     check_chromedriver()
-    # chrome_version = '114.283'
-    # chrome_main_version = '114'
-    # get_chromedriver_url(chrome_version, chrome_main_version)
+    # download_url = get_testing_chromedriver_download_url('116')
+    # print(download_url)
